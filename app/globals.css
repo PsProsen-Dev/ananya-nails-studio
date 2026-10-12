@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------
+   Design tokens — blush-and-wine theme (from mockup SPEC, Section 2)
+   Light mode default; dark overrides on `.dark` (class strategy).
+------------------------------------------------------------------- */
+:root {
+  --paper: #fff8f7;
+  --surface: #ffffff;
+  --ink: #2b171b;
+  --muted: #6c555b;
+  --line: #e9d8da;
+  --blush: #f4d6d9;
+  --rose: #b84b60;
+  --wine: #7d2037;
+  --wine-ink: #fff8f6;
+  --sage: #dce5dc;
+  --shadow: 0 22px 58px rgba(88, 38, 49, 0.14);
+  --work-label-bg: rgba(31, 15, 19, 0.82);
+  --seal-shadow: rgba(70, 21, 31, 0.24);
+}
+
+.dark {
+  --paper: #1b1114;
+  --surface: #27191d;
+  --ink: #fff7f5;
+  --muted: #d0b8bd;
+  --line: #493239;
+  --blush: #4a2d35;
+  --rose: #ec8398;
+  --wine: #ef8ba0;
+  --wine-ink: #271218;
+  --sage: #2c3a31;
+  --shadow: 0 22px 58px rgba(0, 0, 0, 0.28);
+}
+
+/* Tailwind v4 theme wiring — utilities like bg-wine, text-rose, border-line */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-wine: var(--wine);
+  --color-wine-ink: var(--wine-ink);
+  --color-sage: var(--sage);
+
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+
+  --radius-lg: 34px;
+  --radius-md: 20px;
+  --radius-sm: 12px;
+
+  /* SPEC breakpoints: base = phone (≤560), tablet = 561–860, desktop = ≥861 */
+  --breakpoint-tablet: 561px;
+  --breakpoint-desktop: 861px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 560px) {
+  body {
+    font-size: 15px;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Signature shapes (SPEC 2.4)
+------------------------------------------------------------------- */
+.arch-hero {
+  border-radius: 44% 44% 18px 18px;
+}
+@media (max-width: 560px) {
+  .arch-hero {
+    border-radius: 42% 42% 18px 18px;
+  }
+}
+.arch-mood {
+  border-radius: 48% 48% 20px 20px;
+}
+.tile-a {
+  border-radius: 34px 8px 34px 8px;
+}
+.tile-b {
+  border-radius: 8px 34px 8px 34px;
+}
+
+/* ------------------------------------------------------------------
+   Layout primitives
+------------------------------------------------------------------- */
+.wrap {
+  width: min(1180px, 100% - 40px);
+  margin-inline: auto;
+}
+@media (max-width: 860px) {
+  .wrap {
+    width: min(100% - 28px, 700px);
+  }
+}
+.section-pad {
+  padding-block: 92px;
+}
+@media (max-width: 560px) {
+  .section-pad {
+    padding-block: 64px;
+  }
+}
+
+/* Eyebrow: 13px 600 uppercase, .08em tracking, wine, 36px leading line */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--wine);
+}
+.eyebrow::before {
+  content: "";
+  width: 36px;
+  height: 2px;
+  background: var(--wine);
+  border-radius: 999px;
+  flex: none;
+}
+
+/* Section headings */
+.h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  font-size: clamp(38px, 5vw, 60px);
+}
+.h1 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+  font-size: clamp(48px, 6.7vw, 88px);
+  max-width: 680px;
+}
+@media (max-width: 560px) {
+  .h1 {
+    font-size: clamp(47px, 15vw, 68px);
+  }
+}
+.h1 em,
+.brand-em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--rose);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 28px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+  cursor: pointer;
+}
+.btn-primary {
+  background: var(--wine);
+  color: var(--wine-ink);
+  border: 1px solid var(--wine);
+}
+.btn-primary:hover {
+  background: var(--rose);
+  border-color: var(--rose);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-secondary:hover {
+  background: var(--surface);
+}
+@media (max-width: 560px) {
+  .btn-full-mobile {
+    width: 100%;
+  }
+}
+
+/* Gallery hover (desktop) */
+@media (hover: hover) {
+  .gallery-img img {
+    transition: transform 0.55s ease;
+  }
+  .gallery-img:hover img {
+    transform: scale(1.025);
+  }
+}
+
+/* Form fields */
+.field-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 3px solid var(--rose);
+  outline-offset: 3px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
